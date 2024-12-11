@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const List = require("../model/listModel.js");
+const List = require("../model/listing.js");
 const database = require("./data.js");
 
   
@@ -14,7 +14,7 @@ async function main(){
 }
 
 const initDB =  async () => {
-//    await List.deleteMany({});
+   await List.deleteMany({});
    await List.insertMany(database.data);
    console.log("inserted data");
 

@@ -1,11 +1,36 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const app = express();
-const List = require("./model/listModel.js")
-const initDB = require("./init/index.js");
-const database = require("./init/data.js");
 const path = require("path");
+const methodOverride = require("method-override");
+const ejsMate = require("ejs-mate");
+const session = require("express-session");
+const flash = require("connect-flash");
+const ExpressError = require("./utils/ExpressError.js")
 
+
+const listings = require("./routes/listing.js")
+const review = require("./routes/review.js");
+
+app.use(express.urlencoded({ extended: true }));
+app.set("view engine", "ejs");
+app.engine("ejs", ejsMate);
+app.set('views', path.join(__dirname, "views"));
+app.use(express.json());
+app.use(methodOverride("_method"));
+app.use(express.static(path.join(__dirname, "/public")));
+
+
+const sessionOption = {
+    secret: "mysupersecret",
+    resave:false,
+    saveUniInitialize: true,
+    cookie: {
+        expires: Date.now() + 7 * 24 * 60* 60  * 1000,
+        maxAge: 7 * 24 * 60* 60  * 1000,
+        httpOnly : true,
+    }
+}
 
 main().then(() => {
     console.log("connected to DB");
@@ -21,52 +46,29 @@ app.get("/", (req, res) => {
     res.send("Hii, Response sent");
 })
 
-app.get("/list", async (req, res) => {
-    const allInfo = await List.find({});
-    res.render("./listing/app.ejs", { allInfo });
+app.use(session(sessionOption));
+app.use(flash())
+
+
+app.use((req, res, next) => {
+    res.locals.success = req.flash("success");
+    res.locals.error = req.flash("error");
+    console.log(success)
+    next();
 })
 
-app.get("/list/new", (req, res) => {
-    res.render("listing/new.ejs")
+app.use("/list" , listings)
+app.use("/list/:id/reviews", review)
+
+app.all("*", (req, res, next) => {
+    next(new ExpressError(404, "Page not found!"))
 })
 
-// app.post("/list", async (req, res) => {
-//     const { title, description, image, price, location, country } = req.body.title;
-//     console.log("Data saved:", title);
-// })
-
-    // app.post("/list", async (req, res) => {
-    //     const listed = req.body.objData;
-    //     console.log("Data saved:",listed);
-    // });
-
-    // app.post("/list", (req, res) => {
-    //     const { title, description, image, price, location, country } = req.body.objData;
-    //     console.log("Received Data:", { title, description, image, price, location, country });
-    //     res.send("Data received and displayed in terminal.");
-    // });
-
-    // app.post("/list", (req, res) => {
-    //     const { objData } = req.body; // Extract `objData` from `req.body`
-    //     console.log("Received Data:", objData); // Log the nested `objData`
-    //     res.send("Data received and displayed in terminal.");
-    // });
-
-    app.post("/list", (req, res) => {
-        console.log("Received Data:", req.body); // Directly access req.body without destructuring objData
-        res.send("Data received and logged.");
-    });
-    
-app.get("/list/:id", async (req, res) => {
-    let { id } = req.params;
-    const dataById = await List.findById(id);
-    res.render("show.ejs", { dataById });
+app.use((err, req, res, next) => {
+    let { statusCode = 500, message = "SOMETHING WENT WRONG" } = err;
+    console.log(err);
+    res.status(statusCode).render("error.ejs", { message });
 })
-
-app.set("view engine", "ejs");
-app.set('views', path.join(__dirname, "views"));
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
 
 app.listen(8080, () => {
     console.log("App is listening on port 8080");
