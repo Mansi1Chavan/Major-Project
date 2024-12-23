@@ -20,3 +20,4 @@ module.exports.reviewSchema = Joi.object({
         rating: Joi.string().required().min(0).max(5),
     }).required()
 })
+

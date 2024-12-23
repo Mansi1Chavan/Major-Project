@@ -11,6 +11,11 @@
             <div class="card-body">
                 <p class="card-text">
                    <!-- <i> <p>Owned by %= listing.owner.username %></p> </i>  -->
+                   <% if (listing.owner) { %>
+                    <i><p>Owned by <%= listing.owner.username %></p></i>
+                <% } else { %>
+                    <i><p>Owner information not available</p></i>
+                <% } %>
                     <%= listing.description %> <br>
                         &#8377;<%= listing.price.toLocaleString("en-In") %> <br>
                             <%= listing.location  %> <br>
@@ -20,7 +25,7 @@
         </div>
         <br>
  
-        <% if(currUser && listing.owner._id.equals(currUser._id)){ %>
+        <!-- % if(currUser && listing.owner._id.equals(currUser._id)){ %> -->
 
         <div class="btns">
             <a href="/list/<%= listing._id %>/edit" class="btn btn-dark col-1 offset-3 edit-btn">Edit</a>
@@ -29,7 +34,7 @@
                 <button class="btn btn-dark offset-5">Delete</button>
             </form>
         </div>
-<% } %>
+<!--% } %> -->
 
         <div class="col-8 offset-3">
             <% if(currUser ){ %>

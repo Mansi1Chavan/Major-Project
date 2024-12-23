@@ -4,7 +4,7 @@ const wrapAsync = require("../utils/wrapAsync.js");
 const { isLoggedIn, validateSchema } = require("../middleware.js")
 const multer = require('multer');
 const {storage} = require("../cloudConflict.js")
-const upload = multer({ dest: 'uploads/' })
+const upload = multer({ storage });
 
 const listingController = require("../controller/listing.js");
 
@@ -15,8 +15,9 @@ router.route("/")
       isLoggedIn, 
       upload.single('listing[image]'),
       validateSchema,
-      wrapAsync(listingController.createListing));
-     
+      wrapAsync(listingController.createListing)
+);
+
 
 //add new list route
 router.get("/new", isLoggedIn, listingController.renderNewForm)

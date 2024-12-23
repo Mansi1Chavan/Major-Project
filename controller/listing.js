@@ -22,7 +22,7 @@ module.exports.showListing = async (req, res) => {
 
     }
     console.log(listing);
-    res.render("listings/show", { listing });
+    res.render("listings/show.ejs", { listing });
 }
 
 module.exports.createListing = async (req, res) => {
@@ -31,7 +31,7 @@ module.exports.createListing = async (req, res) => {
     
     let newListing = new List(req.body.listing);
     newListing.owner = req.user._id;
-    newListing.image = {url, filename};
+    newListing.image = { url, filename };
     await newListing.save();
     req.flash("success", "New Listing Created!")
     res.redirect("./list");
@@ -40,6 +40,7 @@ module.exports.createListing = async (req, res) => {
 module.exports.renderEditForm = async (req, res) => {
     let { id } = req.params;
     const listing = await List.findById(id);
+    console.log(listing)
     res.render("listings/edit", { listing });
 }
 
