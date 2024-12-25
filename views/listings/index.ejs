@@ -1,39 +1,13 @@
 <% layout('/layouts/boilerplate') -%>
 
   <style>
-    #category {
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      margin: 10px 5px;
-    }
+    
 
-    .filter {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      opacity: 0.7;
-      margin-top: 30px;
-      margin-right: 30px;
-      font-size: 13px;
-
-    }
-
-    .filter:hover {
-      opacity: 1;
-      cursor: pointer;
-    }
-
-    .display {
-      font-size: 13px;
-      margin-left:auto;
-      height: 3rem;
-      border: 1px solid rgb(193, 193, 193);
-      border-radius: 1rem;
-      padding: .8rem ;
-    }
+   
+    
   </style>
   <div id="category">
+    <div class="sections">
     <div class="filter">
       <div><i class="fa-solid fa-fire"></i></div>
       <p>Trending</p>
@@ -74,7 +48,7 @@
       <div><i class="fa-brands fa-fort-awesome"></i></div>
       <p>Castles</p>
     </div>
-
+    </div>
     <div class="display">
     <div class="form-check-reverse form-switch">
       <label class="form-check-label" for="flexSwitchCheckDefault">Display total before taxes</label>

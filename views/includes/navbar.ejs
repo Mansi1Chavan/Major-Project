@@ -2,6 +2,11 @@
   .btn-search {
     background-color: #fe424d;
     color: #fff;
+    border-radius: 5rem;
+  }
+
+  .input {
+    border-radius: 5rem;
   }
 
   .btn-search div {
@@ -12,30 +17,44 @@
     background-color: #fe424d;
     color: #fff;
   }
-</style>
 
+  @media screen and (max-width: 430px) {
+    .search_icon {
+      display: none;
+    }
+
+    .navbar-collapse {
+      background-color: #fff;
+      padding: 1.5rem;
+      position: absolute;
+      right: 0;
+      margin: 1rem;
+      top: 100%;
+      border-radius: 1rem;
+    }
+  }
+</style>
 
 <nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/"><i class="fa-solid fa-compass"></i></a>
+    <a class="navbar-brand" href="/list"><i class="fa-solid fa-compass"></i></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
-        <a class="nav-link" href="/list">Explore</a>
+        <a class="nav-link" href="/list"><b>Explore</b></a>
       </div>
       <div class="search_icon ms-auto">
         <form class="d-flex" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <input class="form-control me-2 input" type="search" placeholder="Search" aria-label="Search">
           <button class="btn btn-search" type="submit">
             Search
-            <!-- <i class="fa-solid fa-magnifying-glass magnifying_glass"></i> -->
           </button>
         </form>
       </div>
       <div class="navbar-nav ms-auto">
-        <a class="nav-link" href="/list/new">Airbnb your home</a>
+        <a class="nav-link" href="/list/new"><b>Airbnb your home</b></a>
         <% if(!currUser) { %>
           <a class="nav-link " href="/signup" class="btn btn-success"><b>Sign Up</b></a>
           <a class="nav-link" href="/login"><b>Log In</b></a>

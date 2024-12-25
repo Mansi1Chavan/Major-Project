@@ -67,9 +67,9 @@ main().then(() => {
 });
 
 
-app.get("/", (req, res) => {
-    res.send("Hii, Response sent");
-})
+// app.get("/", (req, res) => {
+//     res.render("./listings/index.js");
+// })
 
 app.use(session(sessionOption));
 app.use(flash())
