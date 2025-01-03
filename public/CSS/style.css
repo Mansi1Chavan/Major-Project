@@ -92,7 +92,13 @@ background-color: white;
 
 /* edit page */
 .edit-btn{
-    background-color: #fe242d !important;   
+    background-color: #fe242d !important;  
+    width: 8%;
+}
+
+.col-1 {
+    flex: 0 0 auto;
+    width: auto;
 }
 
 /* show image */
@@ -155,9 +161,10 @@ padding-right: 0;
     height: 20rem;
 }
 
+.edit-btn{
+    width: 18%;
+}
 .sections{
-    /* display: flex; */
-    /* flex-wrap:nowrap; */
         flex-flow: row;
         overflow-x: scroll;
         width: 100%;

@@ -48,7 +48,7 @@ module.exports.renderEditForm = async (req, res) => {
 module.exports.updateListing = async (req, res) => {
     let { id } = req.params;
     const listing = await List.findByIdAndUpdate(id, { ...req.body.listing });
-    if(typeof req.file !== undefined){
+    if(typeof req.file !== 'undefined'){
         let url  = req.file.path;
         let filename = req.file.filename;
         
@@ -63,7 +63,7 @@ module.exports.updateListing = async (req, res) => {
 module.exports.destroyListing = async (req, res) => {
     let { id } = req.params;
     let deletedListing = await List.findByIdAndDelete(id);
-    req.flash("success", "Listing Deleted Successfully")
+    req.flash("success", "Listing Deleted Successfully");
     res.redirect("/list");
     console.log(deletedListing)
 }
